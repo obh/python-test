@@ -1,0 +1,6 @@
+pip3 install pytest
+pip3 install tavern
+export PYTHONPATH=:/Users/rohit/python-projects/tests0i
+
+
+py.test test_create.tavern.yaml -v

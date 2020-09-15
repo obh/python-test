@@ -1,0 +1,207 @@
+---
+test_name: Create order invalid email
+strict:
+  - headers:off
+  - json:off
+stages:
+  - name: createOrderInvalidEmail
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661231"
+        order_amount: 1
+        order_currency: "INR"
+        customer:
+          customer_id: "91"
+          customer_email: "rohitcashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      json:
+        status: "ERROR"
+        code: 400
+      verify_response_with:
+        function: testing_utils:assert_quick_response
+      headers:
+        content-type: application/json; charset=UTF-8
+---
+test_name: Create Order invalid expiry
+stages:
+  - name: createOrderInvalidExpiryTime
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661231"
+        order_amount: 1
+        order_currency: "INR"
+        customer:
+          customer_id: "91"
+          customer_email: "rohit@cashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-04-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+   
+---
+test_name: Create Order missing amount
+stages:
+  - name: createOrderMissingAmount
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661231"
+        order_currency: "INR"
+        customer:
+          customer_id: "91"
+          customer_email: "rohitcashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+  
+---
+test_name: Create order missing currency
+stages:
+  - name: createOrderMissingCurrency
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661231"
+        order_amount: 1
+        customer:
+          customer_id: "91"
+          customer_email: "rohitcashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+
+---
+test_name: Create Order invalid currency
+stages:
+  - name: createOrderInvalidCurrency
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661231"
+        order_amount: 1
+        order_currency: "INRY"
+        customer:
+          customer_id: "91"
+          customer_email: "rohitcashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+
+---
+test_name: Create Order invalid orderId
+stages:
+  - name: createOrderInvalidOrderId
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "661`231"
+        order_amount: 1
+        order_currency: "INR"
+        customer:
+          customer_id: "91"
+          customer_email: "rohitcashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+
+---
+test_name: Create successful order
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders
+      method: POST
+      json: 
+        order_id: "85711231"
+        order_amount: 1
+        order_currency: "INR"
+        customer:
+          customer_id: "91"
+          customer_email: "rohit@cashfree.com"
+          customer_phone: "1234512345"
+        order_meta:
+          return_url: "https://www.google.com"
+          notify_url: "https://www.google.com"
+        expiry_time: "2020-09-19T14:15:22Z"
+        order_note: "some note here"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 200
+      headers:
+        content-type: application/json; charset=UTF-8
