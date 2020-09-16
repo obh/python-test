@@ -1,0 +1,285 @@
+---
+test_name: Successful order pay - Seamless(card)
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "10"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 200
+      headers:
+        content-type: application/json; charset=UTF-8
+---
+test_name: Order Pay - Invalid Card Number
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "1234567890123456"
+          card_holder_name: "achint"
+          card_expiry_mm: "10"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+---
+test_name: Order Pay - Invalid expiry year
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "10"
+          card_expiry_yy: "2019"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8
+---
+test_name: Order Pay - Invalid expiry month (> 12)
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "13"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8   
+---
+test_name: Order Pay - Invalid expiry month (< 1)
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "0"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8   
+---
+test_name: Order Pay - Empty card Number
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_holder_name: "achint"
+          card_expiry_mm: "11"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8    
+---
+test_name: Order Pay - Empty card holder name
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_expiry_mm: "11"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8   
+---
+test_name: Order Pay - Empty card expiry year
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "11"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8 
+---
+test_name: Order Pay - Empty card expiry month
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_yy: "2024"
+          card_cvv: "123"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 400
+      headers:
+        content-type: application/json; charset=UTF-8 
+---
+test_name: Order Pay - Empty card cvv
+stages:
+  - name: createOrder
+    request: 
+      url: https://prod.cashfree.com/pgnextgenapi-test/api/v1/orders/235410971/pay
+      method: POST
+      json: 
+        type: "seamless"
+        payment_initiation_mode: "moto"
+        payment_method_details: 
+         card: 
+          card_number: "4143670357021260"
+          card_holder_name: "achint"
+          card_expiry_mm: "11"
+          card_expiry_yy: "2024"
+          bank_name: "testing"
+          card_scheme: "visa"
+          card_type: "credit"
+          card_country: "india"
+      headers:
+        content-type: application/json; charset=UTF-8
+        x-client-id: 32f431b2ba7e639be29f3923
+        x-client-secret: a477c9affdd67b23ab33304948f5b47325afeff8
+    response:
+      status_code: 200
+      headers:
+        content-type: application/json; charset=UTF-8 
